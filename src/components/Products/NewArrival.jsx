@@ -25,12 +25,6 @@ export default function NewArrival() {
       setCanScrollLeft(leftScroll > 0);
       setCanScrollRight(rightScroll);
     }
-
-    console.log({
-      scrollLeft: container.scrollLeft,
-      clientWidth: container.clientWidth,
-      containerScrollWidth: container.scrollWidth,
-    });
   };
   useEffect(() => {
     const container = scrollref.current;
@@ -132,7 +126,7 @@ export default function NewArrival() {
   ];
 
   return (
-    <section className="py-16 px-4 lg:px-5">
+    <section className="py-16 px-4 lg:px-8">
       <div className="container mx-auto text-center mb-12 relative">
         <h2 className="text-3xl font-bold mb-4">Explore New Arrivals</h2>
         <p>
@@ -161,7 +155,7 @@ export default function NewArrival() {
       {/* scrollable content */}
       <div
         ref={scrollref}
-        className="container mx-auto overflow-x-auto flex space-x-6 scroll-smooth lg:px-8 relative"
+        className="container mx-auto overflow-x-auto flex space-x-6 scroll-smooth  relative"
       >
         {newArrivals.map((product) => (
           <div
