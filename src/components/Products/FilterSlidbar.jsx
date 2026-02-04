@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate,useSearchParams } from "react-router-dom";
 
 export default function FilterSlidbar() {
-  const [searchParams, setSearchParams] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams()
+  const navigate=useNavigate()
   const [filters, setFilters] = useState({
     Category: "",
     gender: "",
@@ -78,7 +80,31 @@ export default function FilterSlidbar() {
     } 
     setFilters(newFilter)
     console.log(newFilter)
+    updateURLParams(newFilter)
   };
+
+  const updateURLParams=(newFilter)=>{
+    const params=new URLSearchParams();
+    Object.keys(newFilter).forEach((key)=>{
+      if (Array.isArray(newFilter[key]) && newFilter[key].length>0) {
+        params.append(key,newFilter[key].join(","));
+      } else if(newFilter[key]){
+          params.append(key,newFilter[key]);
+      }
+    })
+    setSearchParams(params)
+    navigate(`?${params.toString()}`)
+  }
+
+
+
+  const handlePriceRange=(e)=>{
+    const newPrice=e.target.value;
+    setPriceRange([0,newPrice])
+    const newFilter={...filters,minPrice:0,maxPrice:newPrice}
+    setFilters(filters)
+    updateURLParams(newFilter)
+  }
 
   return (
     <div className="p-4">
@@ -92,6 +118,7 @@ export default function FilterSlidbar() {
             <input
               value={category}
               onChange={handleFilterChange}
+              checked={filters.category === category}
               type="radio"
               name="category"
               className="mr-2 h-4 w-4 text-blue-400 border-gray-300"
@@ -110,6 +137,7 @@ export default function FilterSlidbar() {
               name="gender"
               value={gender}
               onChange={handleFilterChange}
+              checked={filters.gender === gender}
               className="mr-2 h-4 w-4 text-blue-400 border-gray-300"
             />
             <span className="text-gray-700"> {gender}</span>
@@ -127,7 +155,7 @@ export default function FilterSlidbar() {
               name="color"
               value={color}
               onChange={handleFilterChange}
-              className="w-8 h-8 rounded-full border border-gray-300 cursor-pointer transition hover:scale-105"
+              className={`w-8 h-8 rounded-full border border-gray-300 cursor-pointer transition hover:scale-105 ${filters.color ===color ? "ring-2 ring-blue-500":""}`}
               style={{ backgroundColor: color.toLowerCase() }}
             ></button>
           ))}
@@ -145,6 +173,7 @@ export default function FilterSlidbar() {
               value={size}
               onChange={handleFilterChange}
               name="size"
+              checked={filters.size.includes(size)}
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
             <span className="text-gray-700">{size}</span>
@@ -162,6 +191,7 @@ export default function FilterSlidbar() {
               type="checkbox"
               value={material}
               onChange={handleFilterChange}
+              checked={filters.material.includes(material)}
               name="material"
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
@@ -179,6 +209,7 @@ export default function FilterSlidbar() {
               type="checkbox"
               value={brand}
               onChange={handleFilterChange}
+              checked={filters.brand.includes(brand)}
               name="brand"
               className="mr-2 h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300"
             />
@@ -197,6 +228,8 @@ export default function FilterSlidbar() {
           name="Price Range"
           min={0}
           max={100}
+          value={priceRange[1]}
+          onChange={handlePriceRange}
           className="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer"
         />
         <div className="flex justify-between text-gray-600 mt-2">
