@@ -44,6 +44,8 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center space-x-4">
+          
+          <Link to={"admin"} className=" bg-black px-2 text-sm text-white rounded-lg ">Admin</Link>
           <Link to="/profile" className=" hover:text-black">
             <HiOutlineUser className="h-6 w-6 text-gray-70000" />
           </Link>

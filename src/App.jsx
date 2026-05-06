@@ -11,6 +11,13 @@ import ProductDetails from "./components/Products/ProductDetails";
 import Checkout from "./components/Cart/Checkout";
 import OrderConfirmationPage from "./Pages/OrderConfirmationPage";
 import OrderDetailsPage from "./Pages/OrderDetailsPage";
+import MyOrderPage from "./Pages/MyOrderPage";
+import AdminLayout from "./components/Admin/AdminLayout";
+import AdminHomePage from "./Pages/AdminHomePage";
+import UserManagment from "./components/Admin/UserManagment";
+import ProductManagement from "./components/Admin/ProductManagement";
+import EditProductPage from "./components/Admin/EditProductPage";
+import OrderManagment from "./components/Admin/OrderManagment";
 
 
 export default function App() {
@@ -30,8 +37,17 @@ export default function App() {
             <Route path="checkout" element={<Checkout/>}/>
             <Route path="order-confirmation" element={<OrderConfirmationPage/>}/>
             <Route path="order/:id" element={<OrderDetailsPage/>}/>
+            <Route path="my-orders" element={<MyOrderPage/>}/>
           </Route>
-          <Route>{/* Admin Layout */}</Route>
+          <Route path="admin"  element={<AdminLayout/>}>
+          
+            <Route index element={<AdminHomePage/>}/>
+            <Route path="users" element={<UserManagment/>}/>
+            <Route path="products" element={<ProductManagement/>}/>
+            <Route path="products/:id/edit" element={<EditProductPage/>}/>
+            <Route path="orders" element={<OrderManagment/>}/>
+          </Route>
+
         </Routes>
       </BrowserRouter>
     </>
