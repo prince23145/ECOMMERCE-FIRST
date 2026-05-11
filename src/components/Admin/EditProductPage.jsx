@@ -33,11 +33,10 @@ export default function EditProductPage() {
     const file = e.target.files[0];
     console.log(file);
   };
-const handelSubmit=(e)=>{
-  e.preventDefault()
-  console.log(productData)
-}
-
+  const handelSubmit = (e) => {
+    e.preventDefault();
+    console.log(productData);
+  };
 
   return (
     <div className="max-w-5xl mx-auto p-6 shadow-md rounded-md">
@@ -51,7 +50,8 @@ const handelSubmit=(e)=>{
             type="text"
             name="name"
             value={productData.name}
-            onChange={handelChange} required
+            onChange={handelChange}
+            required
           />
         </div>
 
@@ -75,7 +75,8 @@ const handelSubmit=(e)=>{
             name="price"
             value={productData.price}
             onChange={handelChange}
-            className="border border-gray-400 rounded-md  w-full " required
+            className="border border-gray-400 rounded-md  w-full "
+            required
           />
         </div>
         {/* count in stock */}
@@ -87,8 +88,9 @@ const handelSubmit=(e)=>{
             name="countInStock"
             value={productData.countInStock}
             onChange={handelChange}
-            className="border border-gray-400 rounded-md  w-full " required
-          /> 
+            className="border border-gray-400 rounded-md  w-full "
+            required
+          />
         </div>
 
         {/* sku */}
@@ -100,7 +102,8 @@ const handelSubmit=(e)=>{
             name="sku"
             value={productData.sku}
             onChange={handelChange}
-            className="border border-gray-400 rounded-md  w-full " required
+            className="border border-gray-400 rounded-md  w-full "
+            required
           />
         </div>
         {/* sizes*/}
@@ -119,7 +122,8 @@ const handelSubmit=(e)=>{
                 sizes: e.target.value.split(",").map((size) => size.trim()),
               })
             }
-            className="border border-gray-400 rounded-md  w-full " required
+            className="border border-gray-400 rounded-md  w-full "
+            required
           />
         </div>
 
@@ -139,7 +143,8 @@ const handelSubmit=(e)=>{
                 colors: e.target.value.split(",").map((color) => color.trim()),
               })
             }
-            className="border border-gray-400 rounded-md  w-full " required
+            className="border border-gray-400 rounded-md  w-full "
+            required
           />
         </div>
 
@@ -147,18 +152,41 @@ const handelSubmit=(e)=>{
 
         <div className="mb-6">
           <label className="block font-semibold mb-2">Upload Image</label>
-          <input type="file" onChange={handelImageUpload}   />
+          <input
+            type="file"
+            onChange={handelImageUpload}
+            className=" block
+    w-full
+    text-sm
+    text-gray-500
+    border-2
+    border-dashed
+    border-gray-300
+    rounded-xl
+    cursor-pointer
+    bg-white
+    p-4
+    hover:border-blue-400
+    hover:bg-blue-50"
+          ></input>
           <div className="flex gap-4 mt-4">
-            {productData.images.map((image,index)=>(
+            {productData.images.map((image, index) => (
               <div key={index}>
-                <img src={image.url} alt={image.altText || "product image"}
-                className="w-20 h-20 object-cover rounded-md shadow-md" />
+                <img
+                  src={image.url}
+                  alt={image.altText || "product image"}
+                  className="w-20 h-20 object-cover rounded-md shadow-md"
+                />
               </div>
             ))}
           </div>
         </div>
-      <button type="submit " className="w-full bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors">Update Product</button>  
-      
+        <button
+          type="submit "
+          className="w-full bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
+        >
+          Update Product
+        </button>
       </form>
     </div>
   );
